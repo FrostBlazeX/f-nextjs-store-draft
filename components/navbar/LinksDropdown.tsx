@@ -1,3 +1,5 @@
+"use client";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -5,31 +7,67 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+
 import { LuAlignLeft } from "react-icons/lu";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { links } from "@/utils/links";
+import UserIcon from "./UserIcon";
+import SignOutLink from "./SignOutLink";
+
+import { SignInButton, SignUpButton, useAuth } from "@clerk/nextjs";
 
 function LinksDropdown() {
+  const { userId } = useAuth();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="flex gap-4 max-w-25">
           <LuAlignLeft className="w-6 h-6" />
+          <UserIcon />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-40" align="start" sideOffset={10}>
-        {links.map((link) => {
-          return (
-            <DropdownMenuItem key={link.href}>
-              <Link href={link.href} className="capitalize w-full">
-                {link.label}
-              </Link>
+
+      <DropdownMenuContent className="w-48" align="start" sideOffset={10}>
+        {!userId ? (
+          <>
+            <DropdownMenuItem>
+              <SignInButton mode="modal">
+                <button className="w-full text-left">Login</button>
+              </SignInButton>
             </DropdownMenuItem>
-          );
-        })}
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem>
+              <SignUpButton mode="modal">
+                <button className="w-full text-left">Register</button>
+              </SignUpButton>
+            </DropdownMenuItem>
+          </>
+        ) : (
+          <>
+            {links.map((link) => {
+              return (
+                <DropdownMenuItem key={link.href}>
+                  <Link href={link.href} className="capitalize w-full">
+                    {link.label}
+                  </Link>
+                </DropdownMenuItem>
+              );
+            })}
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem>
+              <SignOutLink />
+            </DropdownMenuItem>
+          </>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
+
 export default LinksDropdown;

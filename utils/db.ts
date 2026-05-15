@@ -1,15 +1,15 @@
-import { PrismaClient } from "@prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
+// import { PrismaClient } from "@prisma/client";
+// import { PrismaPg } from "@prisma/adapter-pg";
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
-const globalForPrisma = global as unknown as { prisma: PrismaClient };
-const adapter = new PrismaPg({ connectionString: process.env.DATABASE_UTL });
-// const prisma = globalForPrisma.prisma || new PrismaClient({ adapter });
+// const globalForPrisma = global as unknown as { prisma: PrismaClient };
+// const adapter = new PrismaPg({ connectionString: process.env.DATABASE_UTL });
+// // const prisma = globalForPrisma.prisma || new PrismaClient({ adapter });
 
-export default prisma;
+// export default prisma;
 
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+// if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
 // import "dotenv/config";
 // import { PrismaPg } from "@prisma/adapter-pg";
@@ -39,3 +39,29 @@ if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 // const prisma = new PrismaClient({
 //   datasourceUrl: process.env.DATABASE_URL,
 // });
+
+import { PrismaClient } from "../generated/prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
+import pg from "pg";
+
+const connectionString = process.env.DATABASE_URL!;
+
+const pool = new pg.Pool({
+  connectionString,
+});
+
+const adapter = new PrismaPg(pool);
+
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined;
+};
+
+export const db =
+  globalForPrisma.prisma ??
+  new PrismaClient({
+    adapter,
+  });
+
+if (process.env.NODE_ENV !== "production") {
+  globalForPrisma.prisma = db;
+}
