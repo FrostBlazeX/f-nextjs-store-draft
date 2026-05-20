@@ -1,67 +1,31 @@
-// import { PrismaClient } from "@prisma/client";
-// import { PrismaPg } from "@prisma/adapter-pg";
-
-// const prisma = new PrismaClient();
-
-// const globalForPrisma = global as unknown as { prisma: PrismaClient };
-// const adapter = new PrismaPg({ connectionString: process.env.DATABASE_UTL });
-// // const prisma = globalForPrisma.prisma || new PrismaClient({ adapter });
-
-// export default prisma;
-
-// if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
-
-// import "dotenv/config";
-// import { PrismaPg } from "@prisma/adapter-pg";
 // import { PrismaClient } from "../generated/prisma/client";
+// import { PrismaPg } from "@prisma/adapter-pg";
+// import pg from "pg";
 
-// const connectionString = `${process.env.DATABASE_URL}`;
+// const connectionString = process.env.DATABASE_URL!;
 
-// const globalForPrisma = global as unknown as { prisma: PrismaClient };
-// const adapter = new PrismaPg({ connectionString });
-// const prisma = new PrismaClient({ adapter });
-
-// export { prisma };
-// if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
-
-// import { PrismaClient } from "@prisma/client";
-
-// const globalForPrisma = global as unknown as {
-//   prisma: PrismaClient;
-// };
-
-// export const prisma = globalForPrisma.prisma || new PrismaClient();
-
-// if (process.env.NODE_ENV !== "production") {
-//   globalForPrisma.prisma = prisma;
-// }
-
-// const prisma = new PrismaClient({
-//   datasourceUrl: process.env.DATABASE_URL,
+// const pool = new pg.Pool({
+//   connectionString,
 // });
 
-import { PrismaClient } from "../generated/prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-import pg from "pg";
+// const adapter = new PrismaPg(pool);
 
-const connectionString = process.env.DATABASE_URL!;
+// const globalForPrisma = globalThis as unknown as {
+//   prisma: PrismaClient | undefined;
+// };
 
-const pool = new pg.Pool({
-  connectionString,
-});
+// export const db =
+//   globalForPrisma.prisma ??
+//   new PrismaClient({
+//     adapter,
+//   });
 
-const adapter = new PrismaPg(pool);
+// if (process.env.NODE_ENV !== "production") {
+//   globalForPrisma.prisma = db;
+// }
 
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined;
-};
+import { PrismaClient } from "@prisma/client";
 
-export const db =
-  globalForPrisma.prisma ??
-  new PrismaClient({
-    adapter,
-  });
+const prisma = new PrismaClient();
 
-if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.prisma = db;
-}
+export default prisma;
