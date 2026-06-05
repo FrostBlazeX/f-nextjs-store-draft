@@ -40,7 +40,7 @@ function CreateProductPage() {
             defaultValue={description}
           />
           <div className="mt-6">
-            <CheckBoxInput name="Featured" label="Featured" />
+            <CheckBoxInput name="featured" label="featured" />
           </div>
           <SubmitButton text="create product" className="mt-8" />
         </FormContainer>

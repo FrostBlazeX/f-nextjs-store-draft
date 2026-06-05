@@ -22,28 +22,50 @@ export const metadata: Metadata = {
   description: "A nifty store built with Next.js",
 };
 
+// export default function RootLayout({
+//   children,
+// }: Readonly<{
+//   children: React.ReactNode;
+// }>) {
+//   return (
+//     <ClerkProvider>
+//       <html
+//         lang="en"
+//         className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+//         suppressHydrationWarning
+//       >
+//         <body>
+//           <Providers>
+//             <Navbar />
+//             <Container className="py-20">{children}</Container>
+//             <Toaster richColors position="top-center" />
+//           </Providers>
+//         </body>
+//       </html>
+//     </ClerkProvider>
+//   );
+// }
+
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <ClerkProvider>
-      <html
-        lang="en"
-        className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-        suppressHydrationWarning
-      >
-        <body>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
+    >
+      <body>
+        <ClerkProvider>
           <Providers>
             <Navbar />
             <Container className="py-20">{children}</Container>
             <Toaster richColors position="top-center" />
           </Providers>
-        </body>
-      </html>
-    </ClerkProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   );
 }
-
-// className = "min-h-full flex flex-col";

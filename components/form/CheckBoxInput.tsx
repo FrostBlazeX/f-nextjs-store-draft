@@ -11,6 +11,7 @@ function CheckBoxInput({ name, label, defaultChecked }: CheckBoxInputProps) {
   return (
     <div className="flex items-center space-x-2">
       <Checkbox id={name} name={name} defaultChecked={defaultChecked} />
+
       <label
         htmlFor={name}
         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
