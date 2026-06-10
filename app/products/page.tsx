@@ -3,15 +3,13 @@ import ProductsContainer from "@/components/products/ProductsContainer";
 async function ProductsPage({
   searchParams,
 }: {
-  searchParams: Promise<{
+  searchParams: {
     layout?: string;
     search?: string;
-  }>;
+  };
 }) {
-  const params = await searchParams;
-
-  const layout = params.layout || "grid";
-  const search = params.search || "";
+  const layout = searchParams.layout || "grid";
+  const search = searchParams.search || "";
 
   return <ProductsContainer layout={layout} search={search} />;
 }

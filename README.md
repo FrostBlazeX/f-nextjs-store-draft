@@ -3493,14 +3493,7 @@ export const fetchProductRating = async () => {};
 ### RatingInput Component
 
 ```tsx
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 
 const RatingInput = ({
   name,

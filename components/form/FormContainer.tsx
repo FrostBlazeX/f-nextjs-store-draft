@@ -4,7 +4,7 @@ import { useFormState } from "react-dom";
 import { useEffect, useActionState } from "react";
 import { toast } from "sonner";
 import { actionFunction } from "@/utils/types";
-// import { de } from "@faker-js/faker";
+import { de } from "@faker-js/faker";
 
 const initialState = {
   message: "",

@@ -1,32 +1,26 @@
 import BreadCrumbs from "@/components/single-product/BreadCrumbs";
-import { fetchSingleProduct } from "@/utils/actions";
+import { fetchSingleProduct, findExistingReview } from "@/utils/actions";
 import Image from "next/image";
 import { formatCurrency } from "@/utils/format";
 import FavoriteToggleButton from "@/components/products/FavoriteToggleButton";
 import AddToCart from "@/components/single-product/AddToCart";
 import ProductsRating from "@/components/single-product/ProductsRating";
+import ShareButton from "@/components/single-product/ShareButton";
+import SubmitReview from "@/components/reviews/SubmitReview";
+import ProductReviews from "@/components/reviews/ProductReviews";
+import { auth } from "@clerk/nextjs/server";
 
-async function SingleProductPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+async function SingleProductPage({ params }: { params: { id: string } }) {
   const { id } = await params;
-
   const product = await fetchSingleProduct(id);
-
-  if (!product) {
-    return <h2>Product not found</h2>;
-  }
-
   const { name, image, company, description, price } = product;
-
   const dollarsAmount = formatCurrency(price);
-
+  const { userId } = await auth();
+  const reviewDoesNotExist =
+    userId && !(await findExistingReview(userId, product.id));
   return (
     <section>
       <BreadCrumbs name={product.name} />
-
       <div className="mt-6 grid gap-y-8 lg:grid-cols-2 lg:gap-x-16">
         {/* IMAGE FIRST COL */}
         <div className="relative h-full min-h-75">
@@ -44,8 +38,10 @@ async function SingleProductPage({
         <div>
           <div className="flex gap-x-8 items-center">
             <h1 className="capitalize text-3xl font-bold">{name}</h1>
-
-            <FavoriteToggleButton productId={id} />
+            <div className="flex items-center gap-x-2">
+              <FavoriteToggleButton productId={id} />
+              <ShareButton name={product.name} productId={id} />
+            </div>
           </div>
 
           <ProductsRating productId={id} />
@@ -60,6 +56,10 @@ async function SingleProductPage({
 
           <AddToCart productId={id} />
         </div>
+      </div>
+      <div className="mt-6">
+        <ProductReviews productId={id} />
+        {reviewDoesNotExist && <SubmitReview productId={id} />}
       </div>
     </section>
   );
