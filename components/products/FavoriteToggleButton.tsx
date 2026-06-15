@@ -10,5 +10,7 @@ async function FavoriteToggleButton({ productId }: { productId: string }) {
   const favoriteId = await fetchFavoriteId({ productId });
 
   return <FavoriteToggleForm favoriteId={favoriteId} productId={productId} />;
+  //
+  // <div></div>;
 }
 export default FavoriteToggleButton;

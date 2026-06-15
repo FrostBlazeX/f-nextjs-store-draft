@@ -55,13 +55,22 @@ export const fetchAllProducts = async ({ search = "" }: { search: string }) => {
   });
 };
 
+// export const fetchSingleProduct = async (productId: string) => {
+//   const product = await db.product.findUnique({
+//     where: {
+//       id: productId,
+//     },
+//   });
+//   if (!product) redirect("/products");
+//   return product;
+// };
 export const fetchSingleProduct = async (productId: string) => {
   const product = await db.product.findUnique({
-    where: {
-      id: productId,
-    },
+    where: { id: productId },
   });
+
   if (!product) redirect("/products");
+
   return product;
 };
 
