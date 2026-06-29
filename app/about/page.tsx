@@ -8,10 +8,13 @@ function AboutPage() {
         </span>
       </h1>
       <p className="mt-6 text-lg tracking-wide leading-8 max-w-2xl mx-auto text-muted-foreground">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero hic
-        distinctio ducimus temporibus nobis autem laboriosam repellat, magni
-        fugiat minima excepturi neque, tenetur possimus nihil atque! Culpa nulla
-        labore nam?
+        At our store, we believe great furniture does more than fill a room—it
+        helps create a place you love coming home to. From stylish living room
+        pieces and cozy bedroom essentials to practical office and dining
+        furniture, we carefully select designs that combine comfort, quality,
+        and timeless style. Whether you're furnishing a new home or refreshing
+        your favorite space, we're here to help you find furniture that fits
+        your lifestyle and makes every room feel complete.
       </p>
     </section>
   );

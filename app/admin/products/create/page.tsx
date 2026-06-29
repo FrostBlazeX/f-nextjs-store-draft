@@ -10,9 +10,36 @@ import { SubmitButton } from "@/components/form/Buttons";
 import { createProductAction } from "@/utils/actions";
 
 function CreateProductPage() {
-  const name = faker.commerce.productName();
-  const company = faker.company.name();
-  const description = faker.lorem.paragraph({ min: 10, max: 12 });
+  // const name = faker.commerce.productName();
+  // const company = faker.company.name();
+  // const description = faker.lorem.paragraph({ min: 10, max: 12 });
+
+  const name = `${faker.commerce.productAdjective()} ${faker.helpers.arrayElement(
+    [
+      "Sofa",
+      "Dining Table",
+      "Coffee Table",
+      "Bed Frame",
+      "Wardrobe",
+      "Office Chair",
+      "Bookshelf",
+      "TV Stand",
+      "Nightstand",
+      "Console Table",
+    ],
+  )}`;
+
+  const company = faker.helpers.arrayElement([
+    "Urban Living",
+    "Oak & Co.",
+    "NordHaus",
+    "ComfortCraft",
+    "Haven Home",
+  ]);
+
+  const description =
+    "Designed to bring comfort and style to your home, this furniture piece is built with quality craftsmanship and durable materials. Its modern design complements a variety of interiors, making it an excellent choice for everyday living.";
+
   return (
     <section>
       <h1 className="text-2xl font-semibold mb-8 capitalize">create product</h1>

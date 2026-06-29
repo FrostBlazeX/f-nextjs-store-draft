@@ -10,9 +10,10 @@ function Hero() {
           We are changing the way people shop
         </h1>
         <p className="mt-8 max-w-xl text-lg leading-8 text-muted-foreground">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
-          perferendis nulla fugiat voluptate architecto expedita quasi nesciunt
-          dolores saepe suscipit.
+          Transform your living spaces with furniture that blends comfort,
+          style, and lasting quality. From cozy sofas and elegant dining sets to
+          functional office pieces and bedroom essentials, discover collections
+          crafted to make every room feel like home.
         </p>
         <Button asChild size="lg" className="mt-10">
           <Link href="/products">Our Products</Link>
